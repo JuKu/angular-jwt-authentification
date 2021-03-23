@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import {catchError, retry} from 'rxjs/operators';
 import {Observable, throwError} from 'rxjs';
 import {AuthResult} from './auth-result';
-import {RestApiService} from '../rest/rest-api.service';
 import {UserCredentials} from '../classes/user-credentials';
+import {RestApiService} from './rest/rest-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  // @ts-ignore
   private res: Observable<AuthResult>;
   private loginListener: (() => void)[] = [];
   private logoutListener: (() => void)[] = [];
@@ -68,8 +69,8 @@ export class AuthService {
     });
   }
 
-  public getToken(): string {
-    let token: string;
+  public getToken(): string | null {
+    let token: string | null;
 
     token = localStorage.getItem(this.accessTokenName);
 
@@ -94,7 +95,8 @@ export class AuthService {
   }
 
   // Error handling
-  handleError(error) {
+  // @ts-ignore
+  handleError(error): object {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error
@@ -111,7 +113,8 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  handleUnauthorizedError(error) {
+  // @ts-ignore
+  handleUnauthorizedError(error): void {
     /* set user as logged off */
     this.logout();
   }
