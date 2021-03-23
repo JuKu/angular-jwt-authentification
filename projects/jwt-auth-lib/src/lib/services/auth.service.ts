@@ -56,7 +56,7 @@ export class AuthService {
     return this.res;
   }
 
-  logout() {
+  logout(): void {
     sessionStorage.removeItem(this.accessTokenName);
     const removeToken = localStorage.removeItem(this.accessTokenName);
     /*if (removeToken == null) {
@@ -68,7 +68,7 @@ export class AuthService {
     });
   }
 
-  public getToken() {
+  public getToken(): string {
     let token: string;
 
     token = localStorage.getItem(this.accessTokenName);
@@ -85,11 +85,11 @@ export class AuthService {
     return (authToken !== null) ? true : false;
   }
 
-  public addLoginListener(listener: () => void) {
+  public addLoginListener(listener: () => void): void {
     this.loginListener.push(listener);
   }
 
-  public addLogoutListener(listener: () => void) {
+  public addLogoutListener(listener: () => void): void {
     this.logoutListener.push(listener);
   }
 
